@@ -70,4 +70,25 @@ public class ItemController {
 
     return itemList;
   }
+
+  // 상품 등록
+  @PostMapping("")
+  public void regItem(@RequestBody ItemDTO itemDTO) {
+    System.out.println("상품 등록");
+    itemList.add(itemDTO);
+  }
+
+  // 상품 수정
+  @PutMapping("/{itemNum}")
+  public void updateItem(
+          @PathVariable("itemNum") int num,
+          @RequestBody ItemDTO itemDTO) {
+    System.out.println(num + "번 상품 수정");
+    for (ItemDTO e : itemList) {
+      if (e.getItemNum() == num) {
+        e.setName(itemDTO.getName());
+        e.setPrice(itemDTO.getPrice());
+      }
+    }
+  }
 }
