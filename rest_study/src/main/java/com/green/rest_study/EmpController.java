@@ -64,28 +64,21 @@ public class EmpController {
   }
 
   @DeleteMapping("/{empNo}")
-  public List<EmpDTO> deleteEmp(@PathVariable("empNo") int empNo) {
+  public String deleteEmp(@PathVariable("empNo") int empNo) {
     System.out.println(empNo + "번 사원 삭제");
-
-    for (int i = 0; i < empList.size(); i++) {
-      if (empList.get(i).getEmpNo() == empNo) {
-        empList.remove(i);
-        break;
-      }
-    }
-
-    return empList;
+    return empNo + " 삭제";
   }
 
   @PutMapping("/{empNo}")
   public void updateEmp(@PathVariable("empNo") int empNo, @RequestBody EmpDTO empDTO) {
     System.out.println(empNo + "번 사원 정보 수정");
+    System.out.println(empDTO);
 
-    for (EmpDTO e : empList) {
+    /*for (EmpDTO e : empList) {
       if (e.getEmpNo() == empNo) {
         e.setSalary(empDTO.getSalary());
         e.setDept(empDTO.getDept());
       }
-    }
+    }*/
   }
 }
