@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<mapper namespace="com.green.basic_board.mapper.BoardMapper">
+
+	<resultMap id="board" type="com.green.basic_board.dto.BoardDTO">
+		<id column="BOARD_NUM" 			property="boardNum" />
+		<result column="TITLE" 			property="title" />
+		<result column="WRITER" 		property="writer" />
+		<result column="CONTENT" 		property="content" />
+		<result column="READ_CNT" 		property="readCnt" />
+		<result column="CREATE_DATE" 	property="createDate" />
+	</resultMap>
+
+	<!-- resultType : 조회되는 모든 데이터 중 하나의 행 데이터를 담을 수 있는 자료형 -->
+	<select id="test1" resultType="String">
+		SELECT TITLE
+		FROM BASIC_BOARD
+		WHERE BOARD_NUM = 1
+	</select>
+
+	<select id="test2" resultType="int">
+		SELECT BOARD_NUM
+		FROM BASIC_BOARD
+	</select>
+
+	<select id="test3" resultMap="board">
+		SELECT BOARD_NUM,
+		       TITLE,
+		       CONTENT,
+		       WRITER
+		FROM BASIC_BOARD
+		WHERE BOARD_NUM = #{boardNum}
+	</select>
+
+	<select id="test4" resultMap="board">
+		SELECT BOARD_NUM,
+		       TITLE,
+		       WRITER,
+		       CREATE_DATE
+		FROM BASIC_BOARD
+		WHERE BOARD_NUM &gt; #{boardNum}
+		AND READ_CNT &lt; #{readCnt}
+	</select>
+</mapper>
