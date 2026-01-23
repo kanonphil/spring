@@ -17,8 +17,8 @@ public class ItemService {
   }
 
   // 전체
-  public List<ItemDTO> getAllItems(ItemDTO itemDTO) {
-    List<ItemDTO> getAllItems = itemMapper.getAllItems(itemDTO);
+  public List<ItemDTO> getAllItems() {
+    List<ItemDTO> getAllItems = itemMapper.getAllItems();
     return getAllItems;
   }
 

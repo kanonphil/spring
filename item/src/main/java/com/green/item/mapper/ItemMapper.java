@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface ItemMapper {
   // 데이터 전체 조회
-  List<ItemDTO> getAllItems(ItemDTO itemDTO);
+  List<ItemDTO> getAllItems();
   // 데이터 번호로 조회
   ItemDTO getItemByNum(int itemNum);
   // 데이터 삽입

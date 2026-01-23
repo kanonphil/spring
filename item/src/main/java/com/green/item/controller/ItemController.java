@@ -16,8 +16,8 @@ public class ItemController {
   }
 
   @GetMapping("")
-  public List<ItemDTO> getAllItems(ItemDTO itemDTO) {
-    List<ItemDTO> getAllItems = itemService.getAllItems(itemDTO);
+  public List<ItemDTO> getAllItems() {
+    List<ItemDTO> getAllItems = itemService.getAllItems();
     return getAllItems;
   }
 
