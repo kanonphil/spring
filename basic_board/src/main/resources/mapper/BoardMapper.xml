@@ -44,4 +44,45 @@
 		WHERE BOARD_NUM &gt; #{boardNum}
 		AND READ_CNT &lt; #{readCnt}
 	</select>
+
+	<insert id="insertBoard">
+		INSERT INTO BASIC_BOARD (
+			TITLE,
+		    WRITER,
+			CONTENT
+		) VALUES (
+			#{title},
+			#{writer},
+			#{content}
+		)
+	</insert>
+
+	<delete id="deleteBoard">
+		DELETE
+		FROM BASIC_BOARD
+		WHERE BOARD_NUM = #{boardNum}
+	</delete>
+
+	<update id="updateBoard">
+		UPDATE BASIC_BOARD
+		SET
+		    TITLE = #{title},
+		    WRITER = #{writer},
+		    CONTENT = #{content}
+		WHERE
+		    BOARD_NUM = #{boardNum}
+	</update>
+
+	<select id="getBoard" resultMap="board">
+		SELECT *
+		FROM BASIC_BOARD
+		<where>
+			<if test='title != null and !title.eauals("")'>
+				AND TITLE = #{title}
+			</if>
+			<if test='writer != null and !writer.equals("")'>
+				AND WRITER = #{writer}
+			</if>
+		</where>
+	</select>
 </mapper>

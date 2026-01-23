@@ -40,4 +40,24 @@ public class BoardService {
         List<BoardDTO> result = boardMapper.test4(boardDTO);
         return result;
     }
+
+    public int regBoard(BoardDTO boardDTO) {
+        int result = boardMapper.insertBoard(boardDTO);
+        return result;
+    }
+
+    public int deleteBoard(int boardNum) {
+        int result = boardMapper.deleteBoard(boardNum);
+        return result;
+    }
+
+    public int updateBoard(BoardDTO boardDTO) {
+        int result = boardMapper.updateBoard(boardDTO);
+        return result;
+    }
+
+    public List<BoardDTO> getBoard(BoardDTO boardDTO) {
+        List<BoardDTO> boardList = boardMapper.getBoard(boardDTO);
+        return boardList;
+    }
 }

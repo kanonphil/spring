@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.annotation.Retention;
 import java.util.List;
 
 @RestController
@@ -41,5 +42,32 @@ public class BoardController {
     public List<BoardDTO> test4(BoardDTO boardDTO) {
         List<BoardDTO> result = boardService.runTest4(boardDTO);
         return result;
+    }
+
+    @PostMapping("/test5")
+    public int insertBoard(@RequestBody BoardDTO boardDTO) {
+        int result = boardService.regBoard(boardDTO);
+        return result;
+    }
+
+    @DeleteMapping("/test6/{boardNum}")
+    public int deleteBoard(@PathVariable int boardNum) {
+        int result = boardService.deleteBoard(boardNum);
+        return result;
+    }
+
+    @PutMapping("/test7/{boardNum}")
+    public int updateBoard(@PathVariable int boardNum,
+                           @RequestBody BoardDTO boardDTO) {
+        boardDTO.setBoardNum(boardNum);
+        int result = boardService.updateBoard(boardDTO);
+        return result;
+    }
+
+
+    @GetMapping("/test8")
+    public List<BoardDTO> getBoard(BoardDTO boardDTO) {
+        List<BoardDTO> boardList = boardService.getBoard(boardDTO);
+        return boardList;
     }
 }
