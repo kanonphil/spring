@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<mapper namespace="com.green.board.mapper.BoardMapper">
+	<resultMap id="board" type="com.green.board.dto.BoardDTO">
+        <id column="BOARD_NUM" property="boardNum" />
+        <result column="TITLE" property="title" />
+        <result column="WRITER" property="writer" />
+        <result column="CONTENT" property="content" />
+        <result column="REG_DATE" property="regDate" />
+        <result column="READ_CNT" property="readCnt" />
+    </resultMap>
+
+    <!-- BoardList 조회 -->
+    <select id="getBoardList" resultMap="board">
+        SELECT
+            BOARD_NUM,
+            TITLE,
+            WRITER,
+            REG_DATE,
+            READ_CNT
+        FROM BOARD
+        ORDER BY BOARD_NUM DESC
+    </select>
+
+    <!-- Board 작성 -->
+    <insert id="regBoard">
+        INSERT INTO BOARD (TITLE, WRITER, CONTENT)
+            VALUES (#{title}, #{writer}, #{content})
+    </insert>
+
+    <!-- Board 상세 조회 -->
+    <select id="getBoard" resultMap="board">
+        SELECT
+            TITLE,
+            WRITER,
+            CONTENT,
+            REG_DATE,
+            READ_CNT
+        FROM BOARD
+        WHERE BOARD_NUM = #{boardNum}
+    </select>
+
+    <!-- Board 수정 -->
+    <update id="updateBoard">
+        UPDATE BOARD
+        SET
+            TITLE = #{title},
+            CONTENT = #{content}
+        WHERE BOARD_NUM = #{boardNum}
+    </update>
+
+    <!-- 게시글 삭제 -->
+    <delete id="deleteBoard">
+        DELETE FROM BOARD
+        WHERE BOARD_NUM = #{boardNum}
+    </delete>
+
+    <!-- 조회수 증가 -->
+    <update id="updateReadCnt">
+        UPDATE BOARD
+        SET READ_CNT = READ_CNT + 1
+        WHERE BOARD_NUM = #{boardNum}
+    </update>
+
+    <!-- 게시글 검색 -->
+    <select id="searchBoard" resultMap="board">
+        SELECT
+            BOARD_NUM,
+            TITLE,
+            WRITER,
+            REG_DATE,
+            READ_CNT
+        FROM BOARD
+        WHERE
+            <choose>
+                <when test="searchType == 'title">
+                    TITLE LIKE CONCAT('%', #{keyword}, '%')
+                </when>
+                <when test="searchType == writer">
+                    WRITER LIKE CONCAT('%', #{keyword}, '%')
+                </when>
+            </choose>
+        ORDER BY BOARD_NUM DESC
+    </select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
