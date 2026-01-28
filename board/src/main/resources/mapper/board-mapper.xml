@@ -4,6 +4,7 @@
 <!-- 해당 파일에 모든 쿼리문을 작성 -->
 <!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
 <mapper namespace="com.green.board.mapper.BoardMapper">
+    <!-- resultMap: 데이터베이스 테이블에서 조회된 데이터를 Spring으로 가져올 자료형을 매칭 -->
 	<resultMap id="board" type="com.green.board.dto.BoardDTO">
         <id column="BOARD_NUM" property="boardNum" />
         <result column="TITLE" property="title" />
@@ -76,10 +77,10 @@
         FROM BOARD
         WHERE
             <choose>
-                <when test="searchType == 'title">
+                <when test="searchType == 'title'">
                     TITLE LIKE CONCAT('%', #{keyword}, '%')
                 </when>
-                <when test="searchType == writer">
+                <when test="searchType == 'writer'">
                     WRITER LIKE CONCAT('%', #{keyword}, '%')
                 </when>
             </choose>
