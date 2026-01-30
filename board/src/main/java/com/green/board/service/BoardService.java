@@ -25,9 +25,9 @@ public class BoardService {
 
   // 게시글 상세 조회 + 조회수 증가
   @Transactional
-  public BoardDTO getBoard(int boardNum, boolean increaseReadCnt) {
+  public BoardDTO getBoard(int boardNum, String type) {
     // 조회수 증가
-    if (increaseReadCnt) {
+    if (type.equals("detail")) {
       boardMapper.updateReadCnt(boardNum);
     }
     // 게시글 조회

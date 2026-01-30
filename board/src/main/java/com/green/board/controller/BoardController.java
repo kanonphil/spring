@@ -26,15 +26,10 @@ public class BoardController {
   }
 
   // 게시글 상세 조회
-  @GetMapping("/detail/{boardNum}")
-  public BoardDTO getBoard(@PathVariable("boardNum") int boardNum) {
-    return boardService.getBoard(boardNum, true);
-  }
-
-  // 게시글 상세 조회
-  @GetMapping("/update/{boardNum}")
-  public BoardDTO getBoardForUpdate(@PathVariable("boardNum") int boardNum) {
-    return boardService.getBoard(boardNum, false);
+  @GetMapping("/{type}/{boardNum}")
+  public BoardDTO getBoard(@PathVariable("type") String type,
+                           @PathVariable("boardNum") int boardNum) {
+    return boardService.getBoard(boardNum, type);
   }
 
   // 게시글 수정
