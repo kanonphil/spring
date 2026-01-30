@@ -28,7 +28,13 @@ public class BoardController {
   // 게시글 상세 조회
   @GetMapping("/detail/{boardNum}")
   public BoardDTO getBoard(@PathVariable("boardNum") int boardNum) {
-    return boardService.getBoard(boardNum);
+    return boardService.getBoard(boardNum, true);
+  }
+
+  // 게시글 상세 조회
+  @GetMapping("/update/{boardNum}")
+  public BoardDTO getBoardForUpdate(@PathVariable("boardNum") int boardNum) {
+    return boardService.getBoard(boardNum, false);
   }
 
   // 게시글 수정
