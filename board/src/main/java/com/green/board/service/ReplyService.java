@@ -14,12 +14,12 @@ public class ReplyService {
 
   // 댓글 목록 조회
   public List<ReplyDTO> getReplyList(int boardNum) {
-    return replyMapper.getReplyList(boardNum);
+    return replyMapper.selectReplyList(boardNum);
   }
 
   // 댓글 등록
   public void regReply(ReplyDTO replyDTO) {
-    replyMapper.regReply(replyDTO);
+    replyMapper.insertReply(replyDTO);
   }
 
   // 댓글 삭제

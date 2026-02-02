@@ -15,7 +15,7 @@
     </resultMap>
 
     <!-- BoardList 조회 -->
-    <select id="getBoardList" resultMap="board">
+    <select id="selectBoardList" resultMap="board">
         SELECT
             BOARD_NUM,
             TITLE,
@@ -27,13 +27,13 @@
     </select>
 
     <!-- Board 작성 -->
-    <insert id="regBoard">
+    <insert id="insertBoard">
         INSERT INTO BOARD (TITLE, WRITER, CONTENT)
             VALUES (#{title}, #{writer}, #{content})
     </insert>
 
     <!-- Board 상세 조회 -->
-    <select id="getBoard" resultMap="board">
+    <select id="selectBoard" resultMap="board">
         SELECT
             TITLE,
             WRITER,
@@ -67,7 +67,7 @@
     </update>
 
     <!-- 게시글 검색 -->
-    <select id="searchBoard" resultMap="board">
+    <select id="selectBoardBySearch" resultMap="board">
         SELECT
             BOARD_NUM,
             TITLE,
@@ -88,34 +88,3 @@
     </select>
 
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

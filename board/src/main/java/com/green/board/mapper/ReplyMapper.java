@@ -8,9 +8,9 @@ import java.util.List;
 @Mapper
 public interface ReplyMapper {
   // 댓글 목록 조회
-  List<ReplyDTO> getReplyList(int boardNum);
+  List<ReplyDTO> selectReplyList(int boardNum);
   // 댓글 등록
-  void regReply(ReplyDTO replyDTO);
+  void insertReply(ReplyDTO replyDTO);
   // 댓글 삭제
   void deleteReply(int replyNum);
 }

@@ -13,25 +13,30 @@ import java.util.List;
 public class BoardService {
   private final BoardMapper boardMapper;
 
-  // 게시글 목록 조회
-  public List<BoardDTO> getBoardList() {
-    return boardMapper.getBoardList();
+  // 게시글 목록 조회 (검색 포함)
+  public List<BoardDTO> getBoardList(String searchType, String keyword) {
+    // 검색 조건이 있으면 검색, 없으면 전체 목록
+    if (keyword != null && !keyword.trim().isEmpty()) {
+      return boardMapper.selectBoardBySearch(searchType, keyword);
+    }
+    return boardMapper.selectBoardList();
   }
 
   // 게시글 등록
   public void regBoard(BoardDTO boardDTO) {
-    boardMapper.regBoard(boardDTO);
+    boardMapper.insertBoard(boardDTO);
   }
 
-  // 게시글 상세 조회 + 조회수 증가
+  // 게시글 상세 조회 (조회수 증가 o)
   @Transactional
-  public BoardDTO getBoard(int boardNum, String type) {
-    // 조회수 증가
-    if (type.equals("detail")) {
-      boardMapper.updateReadCnt(boardNum);
-    }
-    // 게시글 조회
-    return boardMapper.getBoard(boardNum);
+  public BoardDTO getBoard(int boardNum) {
+    boardMapper.updateReadCnt(boardNum);
+    return boardMapper.selectBoard(boardNum);
+  }
+
+  // 게시글 수정용 조회 (조회수 증가 x)
+  public BoardDTO getBoardForEdit(int boardNum) {
+    return boardMapper.selectBoard(boardNum);
   }
 
   // 게시글 수정
@@ -42,10 +47,5 @@ public class BoardService {
   // 게시글 삭제
   public void deleteBoard(int boardNum) {
     boardMapper.deleteBoard(boardNum);
-  }
-
-  // 게시글 검색
-  public List<BoardDTO> searchBoard(String searchType, String keyword) {
-    return boardMapper.searchBoard(searchType, keyword);
   }
 }

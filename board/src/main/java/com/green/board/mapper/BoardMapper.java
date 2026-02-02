@@ -8,11 +8,11 @@ import java.util.List;
 @Mapper
 public interface BoardMapper {
   // 전체조회
-  List<BoardDTO> getBoardList();
+  List<BoardDTO> selectBoardList();
   // 게시글등록
-  void regBoard(BoardDTO boardDTO);
+  void insertBoard(BoardDTO boardDTO);
   // 게시글 상세 조회
-  BoardDTO getBoard(int boardNum);
+  BoardDTO selectBoard(int boardNum);
   // 게시글 수정
   void updateBoard(BoardDTO boardDTO);
   // 게시글 삭제
@@ -20,5 +20,5 @@ public interface BoardMapper {
   // 조회수 증가
   void updateReadCnt(int boardNum);
   // 게시글 검색
-  List<BoardDTO> searchBoard(String searchType, String keyword);
+  List<BoardDTO> selectBoardBySearch(String searchType, String keyword);
 }
