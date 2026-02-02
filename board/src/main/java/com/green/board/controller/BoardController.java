@@ -50,6 +50,6 @@ public class BoardController {
   @GetMapping("/search")
   public List<BoardDTO> searchBoard(@RequestParam("searchType") String searchType,
                                     @RequestParam("keyword") String keyword) {
-    return boardService.searchBoard(searchType, keyword);
+    return boardService.searchBoard(searchType, keyword.trim());
   }
 }

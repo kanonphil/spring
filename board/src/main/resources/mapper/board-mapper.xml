@@ -78,10 +78,10 @@
         WHERE
             <choose>
                 <when test="searchType == 'title'">
-                    TITLE LIKE CONCAT('%', #{keyword}, '%')
+                    UPPER(TITLE) LIKE UPPER(CONCAT('%', #{keyword}, '%'))
                 </when>
                 <when test="searchType == 'writer'">
-                    WRITER LIKE CONCAT('%', #{keyword}, '%')
+                    UPPER(WRITER) LIKE UPPER(CONCAT('%', #{keyword}, '%'))
                 </when>
             </choose>
         ORDER BY BOARD_NUM DESC
