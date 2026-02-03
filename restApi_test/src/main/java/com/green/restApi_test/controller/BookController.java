@@ -15,7 +15,7 @@ public class BookController {
     // 책 목록이 저장될 List 생성
     bookList = new ArrayList<>();
 
-    // 리스트에 게시글을 5개 저장
+    // 리스트에 책을 5개 저장
     bookList.add(new BookDTO(1, "책1", "김자바", "java", 1000));
     bookList.add(new BookDTO(2, "책2", "이자바", "python", 2000));
     bookList.add(new BookDTO(3, "책3", "김자바", "html", 3000));
