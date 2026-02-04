@@ -23,6 +23,18 @@
             REG_DATE,
             READ_CNT
         FROM BOARD
+        <where>
+            <if test="searchType != null and keyword != null and keyword != ''">
+                <choose>
+                    <when test="searchType == 'title'">
+                        UPPER(TITLE) LIKE UPPER(CONCAT('%', #{keyword}, '%'))
+                    </when>
+                    <when test="searchType == 'writer'">
+                        UPPER(WRITER) LIKE UPPER(CONCAT('%', #{keyword}, '%'))
+                    </when>
+                </choose>
+            </if>
+        </where>
         ORDER BY BOARD_NUM DESC
     </select>
 
@@ -66,25 +78,25 @@
         WHERE BOARD_NUM = #{boardNum}
     </update>
 
-    <!-- 게시글 검색 -->
-    <select id="selectBoardBySearch" resultMap="board">
-        SELECT
-            BOARD_NUM,
-            TITLE,
-            WRITER,
-            REG_DATE,
-            READ_CNT
-        FROM BOARD
-        WHERE
-            <choose>
-                <when test="searchType == 'title'">
-                    UPPER(TITLE) LIKE UPPER(CONCAT('%', #{keyword}, '%'))
-                </when>
-                <when test="searchType == 'writer'">
-                    UPPER(WRITER) LIKE UPPER(CONCAT('%', #{keyword}, '%'))
-                </when>
-            </choose>
-        ORDER BY BOARD_NUM DESC
-    </select>
+<!--    &lt;!&ndash; 게시글 검색 &ndash;&gt;-->
+<!--    <select id="selectBoardBySearch" resultMap="board">-->
+<!--        SELECT-->
+<!--            BOARD_NUM,-->
+<!--            TITLE,-->
+<!--            WRITER,-->
+<!--            REG_DATE,-->
+<!--            READ_CNT-->
+<!--        FROM BOARD-->
+<!--        WHERE-->
+<!--            <choose>-->
+<!--                <when test="searchType == 'title'">-->
+<!--                    UPPER(TITLE) LIKE UPPER(CONCAT('%', #{keyword}, '%'))-->
+<!--                </when>-->
+<!--                <when test="searchType == 'writer'">-->
+<!--                    UPPER(WRITER) LIKE UPPER(CONCAT('%', #{keyword}, '%'))-->
+<!--                </when>-->
+<!--            </choose>-->
+<!--        ORDER BY BOARD_NUM DESC-->
+<!--    </select>-->
 
 </mapper>
