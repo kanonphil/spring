@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<mapper namespace="com.green.legacy.mapper.BoardMapper">
+    <resultMap id="board" type="com.green.legacy.dto.BoardDTO">
+        <id     property="boardNum" column="BOARD_NUM" />
+        <result property="title"    column="TITLE"     />
+        <result property="content"  column="CONTENT"   />
+        <result property="writer"   column="WRITER"    />
+        <result property="regDate"  column="REG_DATE"  />
+    </resultMap>
+
+    <select id="selectBoardList" resultMap="board">
+        SELECT BOARD_NUM,
+               TITLE,
+               CONTENT,
+               WRITER,
+               REG_DATE
+        FROM LEGACY_BOARD
+        ORDER BY REG_DATE DESC
+    </select>
+</mapper>
