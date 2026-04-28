@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>주문서</h1>
+
+  <h3>주문정보</h3>
+  <div>
+    <span th:text="${order.chickenType}"></span>
+    (<span th:text="${order.quantity}"></span>마리)
+  </div>
+
+  <div>
+    추가사항 :
+    <span th:each="option : ${order.options}" th:text="${option + ' '}"></span>
+  </div>
+
+  <div>
+    주문 금액 :
+    <span th:text="${order.totalPrice}"></span>원
+  </div>
+
+  <div>
+    요청사항:
+    <span th:text="${order.request}"></span>
+  </div>
+
+  <h3>배달정보</h3>
+  <div>
+    주문자 :
+    <span th:text="${order.name}"></span>
+  </div>
+
+  <div>
+    연락처 :
+    <span th:text="${order.phone}"></span>
+  </div>
+
+  <div>
+    배달주소 :
+    <span th:text="${order.address}"></span>
+  </div>
+</body>
+</html>

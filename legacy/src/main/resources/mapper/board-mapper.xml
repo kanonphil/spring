@@ -21,4 +21,9 @@
         FROM LEGACY_BOARD
         ORDER BY REG_DATE DESC
     </select>
+
+    <insert id="insertBoard">
+        INSERT INTO LEGACY_BOARD (TITLE, CONTENT, WRITER)
+        VALUES (#{title}, #{content}, #{writer})
+    </insert>
 </mapper>

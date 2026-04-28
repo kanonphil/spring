@@ -1,46 +1,58 @@
 <!DOCTYPE html>
 <!-- html에 thymeleaf 문법을 적용 -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <thead>
-    <meta charset="UTF-8">
-    <title>Title</title>
-  </thead>
-  <body>
-    <p>게시글 목록 페이지</p>
+<thead>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <!-- css, js파일은 static 폴더 기준으로 검색 -->
+  <link rel="stylesheet" href="/css/board_list.css">
+</thead>
+<body>
+  <p>게시글 목록 페이지</p>
 
-    <div th:text="${boardList}"></div>
+  <div th:text="${boardList}"></div>
 
-    <div>
-      <table>
-        <thead>
+  <div>
+    <table class="list-table">
+      <thead>
+        <tr>
+          <th>글번호</th>
+          <th>제목</th>
+          <th>작성자</th>
+          <th>작성일</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 리스트가 비었다면 -->
+        <th:block th:if="${#lists.isEmpty(boardList)}">
           <tr>
-            <th>글번호</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>작성일</th>
+            <td colspan="4">등록된 게시글이 없습니다.</td>
           </tr>
-        </thead>
-        <tbody>
-          <!-- 리스트가 비었다면 -->
-          <th:block th:if="${#lists.isEmpty(boardList)}">
-            <tr>
-              <td colspan="4">등록된 게시글이 없습니다.</td>
-            </tr>
-          </th:block>
+        </th:block>
 
-          <!-- 리스트에 데이터가 있다면 -->
-          <th:block th:unless="${#lists.isEmpty(boardList)}">
-            <tr th:each="board : ${boardList}">
-              <td th:text="${board.boardNum}"></td>
-              <td th:text="${board.title}"></td>
-              <td th:text="${board.writer}"></td>
-              <!-- dates: Date, Calendar -->
-              <!-- temporals: LocalDateTime, LocalDate, ZonedDateTime -->
-              <td th:text="${#temporals.format(board.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
-            </tr>
-          </th:block>
-        </tbody>
-      </table>
-    </div>
-  </body>
+        <!-- 리스트에 데이터가 있다면 -->
+        <th:block th:unless="${#lists.isEmpty(boardList)}">
+          <tr th:each="board : ${boardList}">
+            <td th:text="${board.boardNum}"></td>
+            <td th:text="${board.title}"></td>
+            <td th:text="${board.writer}"></td>
+            <!-- dates: Date, Calendar -->
+            <!-- temporals: LocalDateTime, LocalDate, ZonedDateTime -->
+            <td th:text="${#temporals.format(board.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+          </tr>
+        </th:block>
+      </tbody>
+    </table>
+  </div>
+
+  <div>
+    <button 
+      type="button"
+      onclick="goWrite()"
+    >글쓰기</button>
+  </div>
+  
+  <!-- resources/static 폴더 기준 -->
+  <script src="/js/board_list.js"></script>
+</body>
 </html>

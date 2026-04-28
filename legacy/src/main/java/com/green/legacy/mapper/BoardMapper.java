@@ -8,4 +8,5 @@ import java.util.List;
 @Mapper
 public interface BoardMapper {
   List<BoardDTO> selectBoardList();
+  void insertBoard(BoardDTO boardDTO);
 }

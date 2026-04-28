@@ -1,10 +1,13 @@
 package com.green.legacy.controller;
 
+import com.green.legacy.dto.BoardDTO;
 import com.green.legacy.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 // 객체 생성, 해당 클래스는 컨트롤러 역할임을 스프링한테 인지(비동기 미지원)
 @Controller
@@ -31,5 +34,28 @@ public class BoardController {
 
     // html 파일은 무조건 resources/templates 폴더 안에 위치
     return "board_list";
+  }
+
+  // 글쓰기 페이지로 이동
+  @RequestMapping("/go-write")
+  public String goWrite() {
+    return "reg_board";
+  }
+
+  // 글 등록 기능 실행
+  // @ModelAttribute 클래스명 객체명
+  // -> input 태그의 name 속성과 동일한 맴버변수를 가진 dto 클래스로 데이터 받음
+  @RequestMapping("/write")
+  public String write(@ModelAttribute BoardDTO boardDTO) {
+    boardService.regBoard(boardDTO);
+    return "redirect:/boards/getList";
+  }
+
+  @RequestMapping("/write2")
+  public String write2(@RequestParam(name = "name") String name,
+                       @RequestParam(name = "age") String age) {
+    System.out.println("name: " + name);
+    System.out.println("age: " + age);
+    return "";
   }
 }
