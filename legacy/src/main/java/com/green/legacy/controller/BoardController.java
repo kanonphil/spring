@@ -74,7 +74,8 @@ public class BoardController {
   public String delete(@RequestParam("boardNum") int boardNum) {
     boardService.deleteBoard(boardNum);
 
-    return "redirect:/boards/getList";
+//    return "redirect:/boards/getList";
+    return "delete_result";
   }
 
   // 글 수정 페이지 이동

@@ -42,26 +42,29 @@
 <!--      <button type="submit" style="cursor: pointer">삭제</button>-->
 <!--    </form>-->
 
-    <button type="submit" onclick="deleteBoard()" style="cursor: pointer">삭제</button>
+    <button type="button"
+            th:onclick="|deleteBoard(${board.boardNum})|"
+            style="cursor: pointer">삭제</button>
 
-    <script>
-      function deleteBoard() {
-        if (confirm("정말 삭제하시겠습니까?")) {
-          const form = document.createElement("form")
-          form.method = "post"
-          form.action = "/boards/delete"
+    <script src="/js/board_detail.js"></script>
+<!--    <script>-->
+<!--      function deleteBoard() {-->
+<!--        if (confirm("정말 삭제하시겠습니까?")) {-->
+<!--          const form = document.createElement("form")-->
+<!--          form.method = "post"-->
+<!--          form.action = "/boards/delete"-->
 
-          const input = document.createElement("input")
-          input.type = "hidden"
-          input.name = "boardNum"
-          input.value = `[[${board.boardNum}]]`
+<!--          const input = document.createElement("input")-->
+<!--          input.type = "hidden"-->
+<!--          input.name = "boardNum"-->
+<!--          input.value = `[[${board.boardNum}]]`-->
 
-          form.appendChild(input)
-          document.body.appendChild(form)
-          form.submit()
-        }
-      }
-    </script>
+<!--          form.appendChild(input)-->
+<!--          document.body.appendChild(form)-->
+<!--          form.submit()-->
+<!--        }-->
+<!--      }-->
+<!--    </script>-->
   </div>
 </body>
 </html>
