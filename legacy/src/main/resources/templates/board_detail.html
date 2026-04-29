@@ -33,12 +33,35 @@
   <div>
     <button type="button" onclick="location.href='/boards/getList'" style="cursor: pointer">목록</button>
 
-    <button type="button" onclick="location.href='/boards/getList'" style="cursor: pointer">수정</button>
+    <button type="button"
+            th:onclick="|location.href='@{/boards/edit(boardNum=${board.boardNum})}'|"
+            style="cursor: pointer">수정</button>
 
-    <form th:action="@{/boards/delete}" method="post">
-      <input type="hidden" name="boardNum" th:value="${board.boardNum}">
-      <button type="submit" style="cursor: pointer">삭제</button>
-    </form>
+<!--    <form th:action="@{/boards/delete}" method="post">-->
+<!--      <input type="hidden" name="boardNum" th:value="${board.boardNum}">-->
+<!--      <button type="submit" style="cursor: pointer">삭제</button>-->
+<!--    </form>-->
+
+    <button type="submit" onclick="deleteBoard()" style="cursor: pointer">삭제</button>
+
+    <script>
+      function deleteBoard() {
+        if (confirm("정말 삭제하시겠습니까?")) {
+          const form = document.createElement("form")
+          form.method = "post"
+          form.action = "/boards/delete"
+
+          const input = document.createElement("input")
+          input.type = "hidden"
+          input.name = "boardNum"
+          input.value = `[[${board.boardNum}]]`
+
+          form.appendChild(input)
+          document.body.appendChild(form)
+          form.submit()
+        }
+      }
+    </script>
   </div>
 </body>
 </html>

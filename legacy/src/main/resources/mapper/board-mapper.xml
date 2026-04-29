@@ -19,7 +19,7 @@
                WRITER,
                REG_DATE
         FROM LEGACY_BOARD
-        ORDER BY REG_DATE DESC
+        ORDER BY REG_DATE DESC, BOARD_NUM DESC
     </select>
 
     <insert id="insertBoard">
@@ -37,4 +37,18 @@
         FROM LEGACY_BOARD
         WHERE BOARD_NUM = #{boardNum}
     </select>
+
+    <!-- 글 삭제 -->
+    <delete id="deleteBoard" parameterType="int">
+        DELETE FROM LEGACY_BOARD
+        WHERE BOARD_NUM = #{boardNum}
+    </delete>
+
+    <!-- 글 수정 -->
+    <update id="updateBoard" parameterType="com.green.legacy.dto.BoardDTO">
+        UPDATE LEGACY_BOARD
+        SET TITLE = #{title},
+            CONTENT = #{content}
+        WHERE BOARD_NUM = #{boardNum}
+    </update>
 </mapper>

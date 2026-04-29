@@ -61,12 +61,36 @@ public class BoardController {
 
   // 글 상세보기
   @RequestMapping("/detail")
-  public String detail(@RequestParam int boardNum,
-                       Model model) {
+  public String detail(@RequestParam int boardNum, Model model) {
     BoardDTO board = boardService.selectBoardDetail(boardNum);
 
     model.addAttribute("board", board);
 
     return "board_detail";
+  }
+
+  // 글 삭제
+  @RequestMapping("/delete")
+  public String delete(@RequestParam("boardNum") int boardNum) {
+    boardService.deleteBoard(boardNum);
+
+    return "redirect:/boards/getList";
+  }
+
+  // 글 수정 페이지 이동
+  @RequestMapping("/edit")
+  public String edit(@RequestParam("boardNum") int boardNum, Model model) {
+    BoardDTO board = boardService.selectBoardDetail(boardNum);
+    model.addAttribute("board", board);
+
+    return "board_edit";
+  }
+
+  // 글 수정
+  @RequestMapping("/update")
+  public String update(@ModelAttribute BoardDTO boardDTO) {
+    boardService.updateBoard(boardDTO);
+
+    return "redirect:/boards/detail?boardNum=" + boardDTO.getBoardNum();
   }
 }
