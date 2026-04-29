@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -48,14 +49,24 @@ public class BoardController {
   @RequestMapping("/write")
   public String write(@ModelAttribute BoardDTO boardDTO) {
     boardService.regBoard(boardDTO);
-    return "redirect:/boards/getList";
+
+    // 1) 게시글 목록을 조회 -> boardList라는 이름으로 전달
+    // 2) '/boards/getList' 요청 실행
+
+    // return에는 기본적으로 html 파일명을 작성
+    // 추가적으로 html 파일명이 아니라, 컨트롤러의 다른 메서드를 호출
+    // -> "redirect:요청url"
+    return "reg_result";  // 게시글 등록 성공 여부에 따라 alert를 띄울 목적의 html
   }
 
-  @RequestMapping("/write2")
-  public String write2(@RequestParam(name = "name") String name,
-                       @RequestParam(name = "age") String age) {
-    System.out.println("name: " + name);
-    System.out.println("age: " + age);
-    return "";
+  // 글 상세보기
+  @RequestMapping("/detail")
+  public String detail(@RequestParam int boardNum,
+                       Model model) {
+    BoardDTO board = boardService.selectBoardDetail(boardNum);
+
+    model.addAttribute("board", board);
+
+    return "board_detail";
   }
 }

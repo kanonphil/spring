@@ -19,4 +19,8 @@ public class BoardService {
   public void regBoard(BoardDTO boardDTO) {
     boardMapper.insertBoard(boardDTO);
   }
+
+  public BoardDTO selectBoardDetail(int boardNum) {
+    return boardMapper.selectBoardDetail(boardNum);
+  }
 }

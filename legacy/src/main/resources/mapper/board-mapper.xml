@@ -26,4 +26,15 @@
         INSERT INTO LEGACY_BOARD (TITLE, CONTENT, WRITER)
         VALUES (#{title}, #{content}, #{writer})
     </insert>
+
+    <!-- 게시판 상세조회 -->
+    <select id="selectBoardDetail" resultMap="board">
+        SELECT BOARD_NUM,
+               TITLE,
+               CONTENT,
+               WRITER,
+               REG_DATE
+        FROM LEGACY_BOARD
+        WHERE BOARD_NUM = #{boardNum}
+    </select>
 </mapper>

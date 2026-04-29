@@ -10,7 +10,7 @@
 <body>
   <p>게시글 목록 페이지</p>
 
-  <div th:text="${boardList}"></div>
+  <!-- <div th:text="${boardList}"></div> -->
 
   <div>
     <table class="list-table">
@@ -34,12 +34,27 @@
         <th:block th:unless="${#lists.isEmpty(boardList)}">
           <tr th:each="board : ${boardList}">
             <td th:text="${board.boardNum}"></td>
-            <td th:text="${board.title}"></td>
+            <td>
+              <a th:href="@{/boards/detail(boardNum=${board.boardNum})}"
+                th:text="${board.title}">
+              </a>
+            </td>
             <td th:text="${board.writer}"></td>
             <!-- dates: Date, Calendar -->
             <!-- temporals: LocalDateTime, LocalDate, ZonedDateTime -->
             <td th:text="${#temporals.format(board.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
           </tr>
+
+          <!-- 행 1줄을 선택하고 싶으면 -->
+          <!-- <tr th:each="board : ${boardList}"
+            th:onclick="|location.href='@{/boards/detail(boardNum=${board.boardNum})}'|"
+            style="cursor:pointer;">
+            
+            <td th:text="${board.boardNum}"></td>
+            <td th:text="${board.title}"></td>
+            <td th:text="${board.writer}"></td>
+            <td th:text="${#temporals.format(board.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+          </tr> -->
         </th:block>
       </tbody>
     </table>

@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
   private final MemberService memberService;
 
+  // 리액트 네이티브 테스트
+  @GetMapping("/t1")
+  public String t1() {
+    return "aaa";
+  }
+
   // 회원가입
   @PostMapping("")
   public void join(@RequestBody MemberDTO memberDTO) {
