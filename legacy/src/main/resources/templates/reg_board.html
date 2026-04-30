@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="/css/reg_board.css">
 </head>
 <body>
   <!-- 
@@ -13,13 +14,34 @@
     form 태그의 method 속성은 무조건 post로 작성.
   -->
 
-  <form th:action="@{/boards/write}" method="post">
-    작성자 : <input type="text" name="writer"> <br>
-    제목 : <input type="text" name="title"> <br>
-    내용 : <input type="text" name="content"> <br>
-    
-    <button type="submit">등록</button>
-  </form>
+  <div class="container">
+    <div class="card">
+      <h1 class="page-title">게시글 작성</h1>
+
+      <form th:action="@{/boards/write}" method="post">
+
+        <div class="form-group">
+          <label>작성자</label>
+          <input type="text" name="writer">
+        </div>
+
+        <div class="form-group">
+          <label>제목</label>
+          <input type="text" name="title">
+        </div>
+
+        <div class="form-group">
+          <label>내용</label>
+          <input type="text" name="content">
+        </div>
+
+        <div class="button-group">
+          <button type="submit" class="submit-btn">등록</button>
+          <button type="button" class="cancel-btn" onclick="history.back()">취소</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <!-- <form action="/boards/write2" method="post">
     이름 : <input type="text" name="name"> <br>

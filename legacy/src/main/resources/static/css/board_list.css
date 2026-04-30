@@ -1,3 +1,77 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f5f6f8;
+}
+
+.container {
+  width: 900px;
+  margin: 60px auto;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
 .list-table {
-  border: 1px solid black;
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.list-table thead {
+  background-color: #f1f3f5;
+}
+
+.list-table th {
+  padding: 14px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.list-table td {
+  padding: 14px;
+  text-align: center;
+  border-top: 1px solid #eee;
+  font-size: 14px;
+}
+
+.list-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.list-table a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.list-table a:hover {
+  color: #4f46e5;
+}
+
+.write-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  float: right;
+}
+
+.write-btn:hover {
+  background-color: #4338ca;
+}
+
+.empty {
+  padding: 30px;
+  color: #888;
 }

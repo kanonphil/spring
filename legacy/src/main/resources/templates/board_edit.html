@@ -6,27 +6,34 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <link rel="stylesheet" href="/css/board_edit.css">
 </head>
 <body>
-<form th:action="@{/boards/update}" method="post">
-  <input type="hidden" name="boardNum" th:value="${board.boardNum}">
+<div class="container">
+  <div class="card">
+    <h1 class="page-title">수정 페이지</h1>
 
-  <div>
-    <label>
-      제목:
-      <input type="text" name="title" th:value="${board.title}">
-    </label>
+    <form th:action="@{/boards/update}" method="post">
+      <input type="hidden" name="boardNum" th:value="${board.boardNum}">
+
+      <div class="form-group">
+        <label>
+          제목
+          <input type="text" name="title" th:value="${board.title}">
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label>
+          내용
+          <textarea name="content" rows="5" cols="30"
+                    th:text="${board.content}"></textarea>
+        </label>
+      </div>
+
+      <button type="submit" class="submit-btn">수정 완료</button>
+    </form>
   </div>
-
-  <div>
-    <label>
-      내용:
-      <textarea name="content" rows="5" cols="30"
-                th:text="${board.content}"></textarea>
-    </label>
-  </div>
-
-  <button type="submit">수정 완료</button>
-</form>
+</div>
 </body>
 </html>
