@@ -69,8 +69,116 @@ button {
 .delete-btn {
   background: #ef4444;
   color: white;
+  text-decoration: none;
 }
 
 button:hover {
   opacity: 0.9;
+}
+
+.comment-form {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.writer-input {
+  width: 100px;
+  height: 40px;
+}
+
+.content-input {
+  flex: 1;
+  height: 40px;   /* ← textarea를 input처럼 */
+}
+
+.comment-form input,
+.comment-form textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.writer-input {
+  width: 120px;
+}
+
+.submit-btn {
+  width: 70px;
+  height: 40px;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background: #4338ca;
+}
+
+.comment-section {
+  margin-top: 40px;
+}
+
+.comment-list {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.comment-item {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.comment-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.writer {
+  font-weight: 600;
+}
+
+.date {
+  font-size: 13px;
+  color: #888;
+}
+
+.comment-content {
+  margin: 10px 0;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.comment-bottom {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.delete-form {
+  text-align: right;
+}
+
+.delete-btn:hover {
+  text-decoration: underline;
+}
+
+.empty {
+  text-align: center;
+  padding: 20px;
+  color: #888;
 }

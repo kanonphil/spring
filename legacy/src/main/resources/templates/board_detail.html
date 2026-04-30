@@ -69,6 +69,43 @@
     <!--      }-->
     <!--    </script>-->
   </div>
+
+  <div class="comment-section">
+    <form th:action="@{/replies/write}" method="post" class="comment-form">
+      <input type="hidden" name="boardNum" th:value="${board.boardNum}">
+
+      <input type="text" name="replyWriter" placeholder="작성자" class="writer-input">
+      <textarea name="replyContent" placeholder="댓글" class="content-input"></textarea>
+
+      <button type="submit" class="submit-btn">등록</button>
+    </form>
+  </div>
+
+  <div class="empty" th:if="${#lists.isEmpty(replyList)}">
+    등록된 댓글이 없습니다.
+  </div>
+  <div class="comment-list" th:unless="${#lists.isEmpty(replyList)}">
+
+    <div class="comment-item" th:each="reply : ${replyList}">
+
+      <div class="comment-top">
+        <span class="writer" th:text="${reply.replyWriter}"></span>
+        <span class="date"
+              th:text="${#temporals.format(reply.regDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
+      </div>
+      <div class="comment-content"
+           th:text="${reply.replyContent}">
+      </div>
+
+      <div class="comment-bottom">
+        <form th:action="@{/replies/delete}" method="post" class="delete-form">
+          <input type="hidden" name="replyNum" th:value="${reply.replyNum}">
+          <input type="hidden" name="boardNum" th:value="${board.boardNum}">
+          <button type="submit" class="delete-btn">삭제</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 <script src="/js/board_detail.js"></script>
 </body>

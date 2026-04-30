@@ -1,7 +1,9 @@
 package com.green.legacy.controller;
 
 import com.green.legacy.dto.BoardDTO;
+import com.green.legacy.dto.ReplyDTO;
 import com.green.legacy.service.BoardService;
+import com.green.legacy.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,12 +12,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 // 객체 생성, 해당 클래스는 컨트롤러 역할임을 스프링한테 인지(비동기 미지원)
 @Controller
 @RequestMapping("/boards")
 @RequiredArgsConstructor
 public class BoardController {
   private final BoardService boardService;
+  private final ReplyService replyService;
 
   // 게시글 목록('/boards/getList')
   // 조회, 등록, 삭제, 수정이든 전부 @RequestMapping 어노테이션 사용
@@ -63,8 +68,10 @@ public class BoardController {
   @RequestMapping("/detail")
   public String detail(@RequestParam int boardNum, Model model) {
     BoardDTO board = boardService.selectBoardDetail(boardNum);
+    List<ReplyDTO> replyList = replyService.selectReplyList(boardNum);
 
     model.addAttribute("board", board);
+    model.addAttribute("replyList", replyList);
 
     return "board_detail";
   }
