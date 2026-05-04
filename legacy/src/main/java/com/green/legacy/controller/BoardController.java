@@ -28,15 +28,23 @@ public class BoardController {
   // 레거시 방식에서는 리턴되는 정보는 보여질 html 파일명을 의미함
   // 매개변수에 선언한 Model 인터페이스 객체는 데이터를 적재하는 역할
   @RequestMapping("/getList")
-  public String getList(Model model) {
-    // 필요한 데이터 조회
-    String name = "hong";
-    int age = 20;
+  // 컨트롤러의 메서드 매개변수에 dto클래스를 전달받으면 객체를 알아서 생성
+  // 이러한 객체를 커맨드 객체라 부른다. 커맨드 객체는 자동으로 HTML로 전달됨.
+  // 커맨드 객체가 html로 전달될 때는 객체명이 아니라 클래스명에서 앞글자만 소문자로 바뀐채로 넘어감.
+  public String getList(@ModelAttribute BoardDTO boardDTO, Model model) {
+    // 전체 데이터 수 조회
+    int totalBoardCnt = boardService.selectBoardCnt();
+    boardDTO.setTotalDataCnt(totalBoardCnt);
 
-    // 조회한 데이터를 실음
-    model.addAttribute("data", name);
-    model.addAttribute("ageData", age);
-    model.addAttribute("boardList", boardService.selectBoardList());
+    // 페이징 정보 세팅
+    boardDTO.setPageInfo();
+
+    System.out.println(boardDTO);
+
+    List<BoardDTO> boardList = boardService.selectBoardList(boardDTO);
+
+    // 조회한 게시글 목록을 html로 전달
+    model.addAttribute("boardList", boardList);
 
     // html 파일은 무조건 resources/templates 폴더 안에 위치
     return "board_list";

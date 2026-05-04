@@ -11,59 +11,84 @@
 
 <!-- <div th:text="${boardList}"></div> -->
 
-<div class="container">
-  <p class="page-title">게시글 목록 페이지</p>
-  <table class="list-table">
-    <thead>
-      <tr>
-        <th>글번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>작성일</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- 리스트가 비었다면 -->
-      <th:block th:if="${#lists.isEmpty(boardList)}">
+  <div class="container">
+    <p class="page-title">게시글 목록 페이지</p>
+    <table class="list-table">
+      <thead>
         <tr>
-          <td colspan="4" class="empty">등록된 게시글이 없습니다.</td>
+          <th>글번호</th>
+          <th>제목</th>
+          <th>작성자</th>
+          <th>작성일</th>
         </tr>
-      </th:block>
+      </thead>
+      <tbody>
+        <!-- 리스트가 비었다면 -->
+        <th:block th:if="${#lists.isEmpty(boardList)}">
+          <tr>
+            <td colspan="4" class="empty">등록된 게시글이 없습니다.</td>
+          </tr>
+        </th:block>
 
-      <!-- 리스트에 데이터가 있다면 -->
-      <th:block th:unless="${#lists.isEmpty(boardList)}">
-        <tr th:each="board : ${boardList}">
-          <td th:text="${board.boardNum}"></td>
-          <td>
-            <a th:href="@{/boards/detail(boardNum=${board.boardNum})}"
-              th:text="${board.title}">
-            </a>
-          </td>
-          <td th:text="${board.writer}"></td>
-          <!-- dates: Date, Calendar -->
-          <!-- temporals: LocalDateTime, LocalDate, ZonedDateTime -->
-          <td th:text="${#temporals.format(board.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
-        </tr>
+        <!-- 리스트에 데이터가 있다면 -->
+        <th:block th:unless="${#lists.isEmpty(boardList)}">
+          <tr th:each="board : ${boardList}">
+            <td th:text="${board.boardNum}"></td>
+            <td>
+              <a th:href="@{/boards/detail(boardNum=${board.boardNum})}"
+                th:text="${board.title}">
+              </a>
+            </td>
+            <td th:text="${board.writer}"></td>
+            <!-- dates: Date, Calendar -->
+            <!-- temporals: LocalDateTime, LocalDate, ZonedDateTime -->
+            <td th:text="${#temporals.format(board.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+          </tr>
 
-        <!-- 행 1줄을 선택하고 싶으면 -->
-        <!-- <tr th:each="board : ${boardList}"
-          th:onclick="|location.href='@{/boards/detail(boardNum=${board.boardNum})}'|"
-          style="cursor:pointer;">
+          <!-- 행 1줄을 선택하고 싶으면 -->
+          <!-- <tr th:each="board : ${boardList}"
+            th:onclick="|location.href='@{/boards/detail(boardNum=${board.boardNum})}'|"
+            style="cursor:pointer;">
 
-          <td th:text="${board.boardNum}"></td>
-          <td th:text="${board.title}"></td>
-          <td th:text="${board.writer}"></td>
-          <td th:text="${#temporals.format(board.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
-        </tr> -->
-      </th:block>
-    </tbody>
-  </table>
+            <td th:text="${board.boardNum}"></td>
+            <td th:text="${board.title}"></td>
+            <td th:text="${board.writer}"></td>
+            <td th:text="${#temporals.format(board.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+          </tr> -->
+        </th:block>
+      </tbody>
+    </table>
 
-  <button
-    type="button"
-    onclick="goWrite()"
-    class="write-btn"
-  >글쓰기</button>
+    <div class="pagination">
+
+      <!-- 이전 -->
+      <a class="page-btn prev"
+         th:if="${boardDTO.prev}"
+         th:href="@{/boards/getList(nowPage=${boardDTO.beginPage - 1})}">
+        이전
+      </a>
+
+      <!-- 페이지 번호 -->
+      <a class="page-btn"
+         th:each="pageNum : ${#numbers.sequence(boardDTO.beginPage,boardDTO.endPage)}"
+         th:text="${pageNum}"
+         th:href="@{/boards/getList(nowPage=${pageNum})}"
+         th:classappend="${pageNum == boardDTO.nowPage} ? 'active' : ''">
+      </a>
+
+      <!-- 다음 -->
+      <a class="page-btn next"
+         th:if="${boardDTO.next}"
+         th:href="@{/boards/getList(nowPage=${boardDTO.endPage + 1})}">
+        다음
+      </a>
+    </div>
+
+    <button
+      type="button"
+      onclick="goWrite()"
+      class="write-btn"
+    >글쓰기</button>
   </div>
   
   <!-- resources/static 폴더 기준 -->

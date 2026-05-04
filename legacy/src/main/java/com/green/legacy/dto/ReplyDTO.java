@@ -1,16 +1,12 @@
 package com.green.legacy.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Getter
+@Setter
+@ToString
 public class ReplyDTO {
   private int replyNum;
   private String replyContent;

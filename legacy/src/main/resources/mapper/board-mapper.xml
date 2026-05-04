@@ -19,7 +19,8 @@
                WRITER,
                REG_DATE
         FROM LEGACY_BOARD
-        ORDER BY REG_DATE DESC, BOARD_NUM DESC
+        ORDER BY BOARD_NUM DESC
+        LIMIT #{displayDataCnt} OFFSET #{offsetCnt}
     </select>
 
     <insert id="insertBoard">
@@ -51,4 +52,10 @@
             CONTENT = #{content}
         WHERE BOARD_NUM = #{boardNum}
     </update>
+
+    <!-- 게시글 전체 데이터 수 조회 -->
+    <select id="selectBoardCnt" resultType="int">
+        SELECT COUNT(BOARD_NUM)
+        FROM LEGACY_BOARD
+    </select>
 </mapper>
