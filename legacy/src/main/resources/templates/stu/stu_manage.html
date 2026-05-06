@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <form method="get" action="/students/list">
+    <select name="classNum" onchange="this.form.submit()">
+      <option value="0">전체</option>
+
+      <option th:each="cls : ${classList}"
+              th:value="${cls.classNum}"
+              th:text="${cls.className}"
+              th:selected="${cls.classNum == classNum}">
+      </option>
+    </select>
+  </form>
+
+  <table>
+    <tr>
+      <th>No</th>
+      <th>학번</th>
+      <th>이름</th>
+      <th>학년</th>
+      <th>학급번호</th>
+      <th>학급명</th>
+    </tr>
+
+    <tr th:each="stu, stat : ${studentList}">
+      <td th:text="${totalCount - stat.index}"></td>
+      <td th:text="${stu.stuNum}"></td>
+      <td th:text="${stu.stuName}"></td>
+      <td th:text="${stu.stuYear}"></td>
+      <td th:text="${stu.classNum}"></td>
+      <td th:text="${stu.classDTO.className}"></td>
+    </tr>
+  </table>
+</body>
+</html>

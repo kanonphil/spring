@@ -11,6 +11,6 @@ public class IndexController {
   public String start() {
     // 프로젝트 시작 시 세팅되는 설정, 보완코드 작성
 
-    return "redirect:/boards/getList";
+    return "redirect:/students/list";
   }
 }

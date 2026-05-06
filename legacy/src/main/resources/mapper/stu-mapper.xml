@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<mapper namespace="com.green.legacy.stu_manage.mapper.StuMapper">
+    <resultMap id="stuMap" type="com.green.legacy.stu_manage.dto.StuDTO">
+        <id     property="stuNum"       column="STU_NUM"        />
+        <result property="stuName"      column="STU_NAME"       />
+        <result property="stuYear"      column="STU_YEAR"       />
+        <result property="classNum"     column="CLASS_NUM"      />
+        <association property="classDTO" javaType="com.green.legacy.stu_manage.dto.ClassDTO">
+            <id     property="classNum"  column="CLASS_NUM"/>
+            <result property="className" column="CLASS_NAME"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="classMap" type="com.green.legacy.stu_manage.dto.ClassDTO">
+        <id     property="classNum"     column="CLASS_NUM"  />
+        <result property="className"    column="CLASS_NAME" />
+    </resultMap>
+
+    <select id="selectClassList" resultMap="classMap">
+        SELECT CLASS_NUM,
+               CLASS_NAME
+        FROM ASYNC_CLASS
+    </select>
+
+    <select id="selectStudentsByClass" resultMap="stuMap">
+        SELECT
+        s.STU_NUM,
+        s.STU_NAME,
+        s.STU_YEAR,
+        s.CLASS_NUM,
+        c.CLASS_NAME
+        FROM ASYNC_STUDENT s
+        JOIN ASYNC_CLASS c ON s.CLASS_NUM = c.CLASS_NUM
+
+        <where>
+            <if test="classNum != null and classNum != 0">
+                s.CLASS_NUM = #{classNum}
+            </if>
+        </where>
+    </select>
+</mapper>
