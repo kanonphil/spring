@@ -19,6 +19,18 @@
         <id     property="classNum"     column="CLASS_NUM"  />
         <result property="className"    column="CLASS_NAME" />
     </resultMap>
+    
+    <resultMap id="scoreMap" type="com.green.legacy.stu_manage.dto.ScoreDTO">
+        <id property="scoreNum" column="SCORE_NUM" />
+        <result property="korScore" column="KOR_SCORE" />
+        <result property="engScore" column="ENG_SCORE" />
+        <result property="mathScore" column="MATH_SCORE" />
+        <result property="stuNum" column="STU_NUM" />
+        <association property="stuDTO" javaType="com.green.legacy.stu_manage.dto.StuDTO">
+            <id     property="stuNum"  column="STU_NUM"/>
+            <result property="stuName" column="STU_NAME"/>
+        </association>
+    </resultMap>
 
     <select id="selectClassList" resultMap="classMap">
         SELECT CLASS_NUM,
@@ -28,11 +40,11 @@
 
     <select id="selectStudentsByClass" resultMap="stuMap">
         SELECT
-        s.STU_NUM,
-        s.STU_NAME,
-        s.STU_YEAR,
-        s.CLASS_NUM,
-        c.CLASS_NAME
+            s.STU_NUM,
+            s.STU_NAME,
+            s.STU_YEAR,
+            s.CLASS_NUM,
+            c.CLASS_NAME
         FROM ASYNC_STUDENT s
         JOIN ASYNC_CLASS c ON s.CLASS_NUM = c.CLASS_NUM
 
@@ -42,4 +54,64 @@
             </if>
         </where>
     </select>
+
+    <!-- 학생 점수 조회 -->
+    <select id="getScoreInfo" parameterType="int" resultMap="scoreMap">
+
+        SELECT
+            IFNULL(sc.SCORE_NUM, 0) AS SCORE_NUM,
+            IFNULL(sc.KOR_SCORE, 0) AS KOR_SCORE,
+            IFNULL(sc.ENG_SCORE, 0) AS ENG_SCORE,
+            IFNULL(sc.MATH_SCORE, 0) AS MATH_SCORE,
+
+            s.STU_NUM,
+            s.STU_NAME
+
+        FROM ASYNC_STUDENT s
+        LEFT JOIN ASYNC_SCORE sc
+        ON s.STU_NUM = sc.STU_NUM
+
+        WHERE s.STU_NUM = #{stuNum}
+
+    </select>
+
+    <!-- 점수 존재 여부 -->
+    <select id="isScore" resultType="int">
+
+        SELECT COUNT(*)
+        FROM ASYNC_SCORE
+        WHERE STU_NUM = #{stuNum}
+
+    </select>
+
+    <!-- 점수 등록 -->
+    <insert id="insertScore">
+
+        INSERT INTO ASYNC_SCORE(
+            KOR_SCORE,
+            ENG_SCORE,
+            MATH_SCORE,
+            STU_NUM
+        )
+        VALUES(
+                  #{korScore},
+                  #{engScore},
+                  #{mathScore},
+                  #{stuNum}
+              )
+
+    </insert>
+
+    <!-- 점수 수정 -->
+    <update id="updateScore">
+
+        UPDATE ASYNC_SCORE
+        SET
+            KOR_SCORE = #{korScore},
+            ENG_SCORE = #{engScore},
+            MATH_SCORE = #{mathScore}
+        WHERE STU_NUM = #{stuNum}
+
+    </update>
+
 </mapper>

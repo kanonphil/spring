@@ -57,3 +57,69 @@ const asyncGetList = () => {
       console.log(err)
       })
 };
+
+function getScore(stuNum) {
+  axios.get(`/students/score/${stuNum}`)
+  .then(res => {
+    const score = res.data;
+    let str = ``;
+
+    str += `
+      <div class="score-box">
+        <input type="hidden" id="stuNum" value="${score.stuNum}" >
+        
+        <table border="1">
+          <thead>
+            <tr>
+              <th>학생명</th>
+              <th>국어점수</th>
+              <th>영어점수</th>
+              <th>수학점수</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>${score.stuDTO.stuName}</td>
+              <td>
+                <input type="number" id="korScore" value="${score.korScore}">
+              </td>
+              <td>
+                <input type="number" id="engScore" value="${score.engScore}">
+              </td>
+              <td>
+                <input type="number" id="mathScore" value="${score.mathScore}">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <button type="button" onclick="updateScore()">
+          수정
+        </button>
+      </div>
+    `;
+
+    document.querySelector("#scoreDiv").innerHTML = str;
+  })
+      .catch(err => {
+        console.log(err)
+      })
+
+}
+
+function updateScore() {
+  const scoreInfo = {
+    stuNum : document.querySelector("#stuNum").value,
+    korScore : document.querySelector("#korScore").value,
+    engScore : document.querySelector("#engScore").value,
+    mathScore : document.querySelector("#mathScore").value,
+  }
+
+  axios.put('/students/updateScore', scoreInfo)
+      .then((res) => {
+        alert('수정 완료')
+      })
+      .catch(err => {
+        console.log(err)
+      })
+}

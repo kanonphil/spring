@@ -1,13 +1,12 @@
 package com.green.legacy.stu_manage.controller;
 
+import com.green.legacy.stu_manage.dto.ScoreDTO;
 import com.green.legacy.stu_manage.dto.StuDTO;
 import com.green.legacy.stu_manage.service.StuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,5 +32,18 @@ public class StuController {
   @RequestMapping("/getList")
   public List<StuDTO> getStuList(@RequestParam(name = "classNum") int classNum) {
     return stuService.getStudents(classNum);
+  }
+
+  @ResponseBody
+  @RequestMapping("/score/{stuNum}")
+  public ScoreDTO getScoreInfo(@PathVariable("stuNum") int stuNum) {
+    return stuService.getScoreInfo(stuNum);
+  }
+
+  @ResponseBody
+  @RequestMapping("/updateScore")
+  public void updateScore(@RequestBody ScoreDTO scoreDTO) {
+    stuService.updateScore(scoreDTO);
+
   }
 }
