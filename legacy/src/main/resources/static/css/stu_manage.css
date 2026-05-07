@@ -1,0 +1,25 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.select {
+  padding: 6px;
+}
+
+.list-table {
+  width: 100%;
+  text-align: center;
+}
+
+.list-table > thead > tr > th {
+  background-color: #dddddd;
+  padding: 8px;
+}
+
+.list-table > tbody > tr > td {
+  padding: 8px;
+}

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -24,8 +25,13 @@ public class StuController {
     model.addAttribute("studentList", studentList);
     model.addAttribute("classNum", classNum);
     model.addAttribute("classList", stuService.getClassList());
-    model.addAttribute("totalCount", studentList.size());
 
     return "stu/stu_manage";
+  }
+
+  @ResponseBody // 이 메서드는 비동기 메서드임을 인지
+  @RequestMapping("/getList")
+  public List<StuDTO> getStuList(@RequestParam(name = "classNum") int classNum) {
+    return stuService.getStudents(classNum);
   }
 }

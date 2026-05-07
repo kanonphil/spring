@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
+  <link rel="stylesheet" href="/css/stu_manage.css">
 </head>
 <body>
   <form method="get" action="/students/list">
-    <select name="classNum" onchange="this.form.submit()">
+    <!-- onchange="asyncGetList()" id="classSelector" -->
+    <select name="classNum" onchange="this.form.submit()" class="select">
       <option value="0">전체</option>
 
       <option th:each="cls : ${classList}"
@@ -17,24 +19,33 @@
     </select>
   </form>
 
-  <table>
-    <tr>
-      <th>No</th>
-      <th>학번</th>
-      <th>이름</th>
-      <th>학년</th>
-      <th>학급번호</th>
-      <th>학급명</th>
-    </tr>
+  <!-- id="list_table" -->
+  <table class="list-table" id="list_table">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>학번</th>
+        <th>이름</th>
+        <th>학년</th>
+        <th>학급번호</th>
+        <th>학급명</th>
+      </tr>
+    </thead>
 
-    <tr th:each="stu, stat : ${studentList}">
-      <td th:text="${totalCount - stat.index}"></td>
-      <td th:text="${stu.stuNum}"></td>
-      <td th:text="${stu.stuName}"></td>
-      <td th:text="${stu.stuYear}"></td>
-      <td th:text="${stu.classNum}"></td>
-      <td th:text="${stu.classDTO.className}"></td>
-    </tr>
+    <tbody>
+      <tr th:each="stu, stat : ${studentList}">
+        <td th:text="${#lists.size(studentList) - stat.index}"></td>
+        <td th:text="${stu.stuNum}"></td>
+        <td th:text="${stu.stuName}"></td>
+        <td th:text="${stu.stuYear}"></td>
+        <td th:text="${stu.classNum}"></td>
+        <td th:text="${stu.classDTO.className}"></td>
+      </tr>
+    </tbody>
+
   </table>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="/js/stu_manage.js"></script>
 </body>
 </html>
