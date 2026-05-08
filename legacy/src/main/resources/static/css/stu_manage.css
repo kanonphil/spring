@@ -33,6 +33,7 @@ body{
 /* select */
 .select {
   padding: 10px;
+  cursor: pointer;
 }
 
 /* 테이블 */
@@ -64,6 +65,41 @@ body{
   border: 1px solid #ddd;
   padding: 20px;
   border-radius: 10px;
+}
+
+/* 버튼 div */
+.btn-area {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+/* 수정 버튼 */
+.edit-btn {
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.edit-btn:hover{
+  background-color: #ddd;
+}
+
+#korScore {
+  padding: 8px;
+}
+
+#engScore {
+  padding: 8px;
+}
+
+#mathScore {
+  padding: 8px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 /* 반응형 */

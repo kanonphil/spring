@@ -12,8 +12,8 @@ import java.util.List;
 public interface StuMapper {
   List<StuDTO> selectStudentsByClass(@Param("classNum") Integer classNum);
   List<ClassDTO> selectClassList();
-  ScoreDTO getScoreInfo(int stuNum);
-  int isScore(int stuNum);
+  ScoreDTO getScoreInfo(@Param("stuNum") int stuNum);
+  int isScore(@Param("stuNum") int stuNum);
   void insertScore(ScoreDTO scoreDTO);
   void updateScore(ScoreDTO scoreDTO);
 }

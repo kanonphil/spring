@@ -40,9 +40,8 @@
           <td th:text="${stu.stuNum}"></td>
           <td>
           <span th:text="${stu.stuName}"
-                th:onclick="'getScore(' + ${stu.stuNum} + ')'"
+                th:onclick="|getScore(${stu.stuNum})|"
                 class="stu-name">
-
           </span>
           </td>
           <td th:text="${stu.stuYear}"></td>

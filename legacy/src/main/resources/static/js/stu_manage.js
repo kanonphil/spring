@@ -60,51 +60,57 @@ const asyncGetList = () => {
 
 function getScore(stuNum) {
   axios.get(`/students/score/${stuNum}`)
-  .then(res => {
-    const score = res.data;
-    let str = ``;
+    .then(res => {
+      const score = res.data;
+      drawScore(score);
+    })
+    .catch(err => {
+      console.log(err)
+    })
 
-    str += `
-      <div class="score-box">
-        <input type="hidden" id="stuNum" value="${score.stuNum}" >
-        
-        <table border="1">
-          <thead>
-            <tr>
-              <th>학생명</th>
-              <th>국어점수</th>
-              <th>영어점수</th>
-              <th>수학점수</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>${score.stuDTO.stuName}</td>
-              <td>
-                <input type="number" id="korScore" value="${score.korScore}">
-              </td>
-              <td>
-                <input type="number" id="engScore" value="${score.engScore}">
-              </td>
-              <td>
-                <input type="number" id="mathScore" value="${score.mathScore}">
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        
-        <button type="button" onclick="updateScore()">
+}
+
+function drawScore(score) {
+  let str = ``;
+
+  str += `
+    <div class="score-box">
+      <input type="hidden" id="stuNum" value="${score.stuNum}" >
+      
+      <table class="list-table">
+        <thead>
+          <tr>
+            <th>학생명</th>
+            <th>국어점수</th>
+            <th>영어점수</th>
+            <th>수학점수</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>${score.stuDTO.stuName}</td>
+            <td>
+              <input type="number" id="korScore" value="${score.korScore}">
+            </td>
+            <td>
+              <input type="number" id="engScore" value="${score.engScore}">
+            </td>
+            <td>
+              <input type="number" id="mathScore" value="${score.mathScore}">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div class="btn-area">
+        <button type="button" onclick="updateScore()" class="edit-btn">
           수정
         </button>
       </div>
-    `;
+    </div>
+  `;
 
-    document.querySelector("#scoreDiv").innerHTML = str;
-  })
-      .catch(err => {
-        console.log(err)
-      })
-
+  document.querySelector("#scoreDiv").innerHTML = str;
 }
 
 function updateScore() {
@@ -116,10 +122,10 @@ function updateScore() {
   }
 
   axios.put('/students/updateScore', scoreInfo)
-      .then((res) => {
-        alert('수정 완료')
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    .then((res) => {
+      alert('수정 완료')
+    })
+    .catch(err => {
+      console.log(err)
+    })
 }
