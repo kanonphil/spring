@@ -70,6 +70,27 @@ function getScore(stuNum) {
 
 }
 
+function saveScore() {
+  const scoreInfo = {
+    stuNum : document.querySelector("#stuNum").value,
+    korScore : document.querySelector("#korScore").value,
+    engScore : document.querySelector("#engScore").value,
+    mathScore : document.querySelector("#mathScore").value,
+  }
+
+  axios.put('/students/saveScore', scoreInfo)
+      .then((res) => {
+        if (res.data === 'insert') {
+          alert('성적 정보가 추가되었습니다.')
+        } else {
+          alert('성적 수정이 완료되었습니다.')
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
+}
+
 function drawScore(score) {
   let str = ``;
 
@@ -111,25 +132,4 @@ function drawScore(score) {
   `;
 
   document.querySelector("#scoreDiv").innerHTML = str;
-}
-
-function saveScore() {
-  const scoreInfo = {
-    stuNum : document.querySelector("#stuNum").value,
-    korScore : document.querySelector("#korScore").value,
-    engScore : document.querySelector("#engScore").value,
-    mathScore : document.querySelector("#mathScore").value,
-  }
-
-  axios.put('/students/saveScore', scoreInfo)
-    .then((res) => {
-      if (res.data === 'insert') {
-        alert('성적 정보가 추가되었습니다.')
-      } else {
-        alert('성적 수정이 완료되었습니다.')
-      }
-    })
-    .catch(err => {
-      console.log(err)
-    })
 }
