@@ -88,7 +88,7 @@ function drawScore(score) {
         </thead>
         <tbody>
           <tr>
-            <td>${score.stuDTO.stuName}</td>
+            <td>${score.stuDTO?.stuName ?? ''}</td>
             <td>
               <input type="number" id="korScore" value="${score.korScore}">
             </td>
@@ -103,8 +103,8 @@ function drawScore(score) {
       </table>
       
       <div class="btn-area">
-        <button type="button" onclick="updateScore()" class="edit-btn">
-          수정
+        <button type="button" onclick="saveScore()" class="edit-btn">
+          ${score.scoreNum ? "수정" : "추가"}
         </button>
       </div>
     </div>
@@ -113,7 +113,7 @@ function drawScore(score) {
   document.querySelector("#scoreDiv").innerHTML = str;
 }
 
-function updateScore() {
+function saveScore() {
   const scoreInfo = {
     stuNum : document.querySelector("#stuNum").value,
     korScore : document.querySelector("#korScore").value,
@@ -121,7 +121,7 @@ function updateScore() {
     mathScore : document.querySelector("#mathScore").value,
   }
 
-  axios.put('/students/updateScore', scoreInfo)
+  axios.put('/students/saveScore', scoreInfo)
     .then((res) => {
       if (res.data === 'insert') {
         alert('성적 정보가 추가되었습니다.')

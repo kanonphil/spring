@@ -26,14 +26,14 @@ public class StuService {
     return stuMapper.getScoreInfo(stuNum);
   }
 
-  public String updateScore(ScoreDTO scoreDTO) {
+  public String saveScore(ScoreDTO scoreDTO) {
     int cnt = stuMapper.isScore(scoreDTO.getStuNum());
 
+    stuMapper.saveScore(scoreDTO);
+
     if (cnt == 0) {
-      stuMapper.insertScore(scoreDTO);
       return "insert";
     } else {
-      stuMapper.updateScore(scoreDTO);
       return "update";
     }
   }

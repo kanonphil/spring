@@ -85,7 +85,7 @@
     </select>
 
     <!-- 점수 등록 -->
-    <insert id="insertScore">
+    <insert id="saveScore">
 
         INSERT INTO ASYNC_SCORE(
             KOR_SCORE,
@@ -100,18 +100,11 @@
                   #{stuNum}
               )
 
-    </insert>
-
-    <!-- 점수 수정 -->
-    <update id="updateScore">
-
-        UPDATE ASYNC_SCORE
-        SET
+        ON DUPLICATE KEY UPDATE
             KOR_SCORE = #{korScore},
             ENG_SCORE = #{engScore},
             MATH_SCORE = #{mathScore}
-        WHERE STU_NUM = #{stuNum}
 
-    </update>
+    </insert>
 
 </mapper>

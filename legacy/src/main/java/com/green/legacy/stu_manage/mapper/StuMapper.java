@@ -14,6 +14,5 @@ public interface StuMapper {
   List<ClassDTO> selectClassList();
   ScoreDTO getScoreInfo(@Param("stuNum") int stuNum);
   int isScore(@Param("stuNum") int stuNum);
-  void insertScore(ScoreDTO scoreDTO);
-  void updateScore(ScoreDTO scoreDTO);
+  void saveScore(ScoreDTO scoreDTO);
 }

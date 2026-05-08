@@ -41,8 +41,8 @@ public class StuController {
   }
 
   @ResponseBody
-  @RequestMapping("/updateScore")
-  public String updateScore(@RequestBody ScoreDTO scoreDTO) {
-    return stuService.updateScore(scoreDTO);
+  @RequestMapping("/saveScore")
+  public String saveScore(@RequestBody ScoreDTO scoreDTO) {
+    return stuService.saveScore(scoreDTO);
   }
 }
