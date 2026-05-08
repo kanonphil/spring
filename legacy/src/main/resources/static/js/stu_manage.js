@@ -123,7 +123,11 @@ function updateScore() {
 
   axios.put('/students/updateScore', scoreInfo)
     .then((res) => {
-      alert('수정 완료')
+      if (res.data === 'insert') {
+        alert('성적 정보가 추가되었습니다.')
+      } else {
+        alert('성적 수정이 완료되었습니다.')
+      }
     })
     .catch(err => {
       console.log(err)

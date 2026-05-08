@@ -26,13 +26,15 @@ public class StuService {
     return stuMapper.getScoreInfo(stuNum);
   }
 
-  public void updateScore(ScoreDTO scoreDTO) {
+  public String updateScore(ScoreDTO scoreDTO) {
     int cnt = stuMapper.isScore(scoreDTO.getStuNum());
 
     if (cnt == 0) {
       stuMapper.insertScore(scoreDTO);
+      return "insert";
     } else {
       stuMapper.updateScore(scoreDTO);
+      return "update";
     }
   }
 }

@@ -71,7 +71,7 @@ body{
 .btn-area {
   display: flex;
   justify-content: flex-end;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 /* 수정 버튼 */
